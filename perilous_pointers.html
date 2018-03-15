@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Favicons -->
+  <link rel="apple-touch-icon" sizes="180x180" href="images/favicons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="images/favicons/favicon-32x32.png" sizes="32x32">
+  <link rel="icon" type="image/png" href="images/favicons/favicon-16x16.png" sizes="16x16">
+  <link rel="manifest" href="images/favicons/manifest.json">
+  <link rel="mask-icon" href="images/favicons/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="theme-color" content="#ffffff">
+
+  <title>Perilous Pointers</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link async rel="stylesheet" href="/css/code-style.css?v=2018-03-15 14:21:15 +0000">
+  <link rel="stylesheet" href="/css/main.css?v=2018-03-15 14:21:15 +0000">
+
+</head>
+
+<body>
+<!-- Always shows a header, even in smaller screens. -->
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            </button>
+
+            <a class="navbar-brand navbar-link normal" href="/">CS 241: System Programming</a>
+            <a class="navbar-brand navbar-link small" href="/">CS 241</a>
+        </div>
+
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li>
+            <a class="navbar-link" href="/mps.html">MPs</a>
+            </li>
+            <li>
+            <a class="navbar-link" href="/labs.html">Labs</a>
+            </li>
+            <li>
+            <a class="navbar-link" href="/help.html">Help!</a>
+            </li>
+            <li>
+            <a class="navbar-link" href="/schedule.html">Schedule</a>
+            </li>
+            <li>
+            <a class="navbar-link" href="/honors.html">Honors</a>
+            </li>
+            <li>
+            <a class="navbar-link" href="/staff.html">The Crew</a>
+            </li>
+            <li>
+            <a class="navbar-link" href="/search.html">Search</a>
+            </li>
+            <li>
+            <a class="navbar-link" href="/wikibook/home.html">Wikibook</a>
+            </li>
+          </ul>
+        </div>
+        </div>
+</nav>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2 col-sm-1 col-xs-0"></div>
+    <div class="col-md-8 col-sm-10 col-xs-12">
+      <div class="wrapper">
+        <div class="pad"><div class="card">
+          <div class="title">
+            <div class="speaker-wrapper">
+              <button onclick="speak()" class="speaker" alt="Read Page"></button>
+            </div>
+            <h1>
+              Perilous Pointers
+              
+                <a class="github-link hidden-xs" href="https://github.com/illinois-cs241/illinois-cs241.github.io/blob/develop/_docs/perilous_pointers.md">Edit on Github</a>
+              
+            </h1>
+          </div>
+          <div class="container-fluid"><div class="row"><div class="content col-sm-11 .col-sm-offset-1">
+            
+              <div class="submission-wrapper">
+                
+                  <b>Entire Assignment</b> due <b>01/31 11:59pm</b><br/>
+                  
+                    <b>Graded files:</b>
+                    <ul>
+                      
+                        <li>part1-functions.c</li>
+                      
+                        <li>part2-main.c</li>
+                      
+                        <li>part3-functions.c</li>
+                      
+                    </ul>
+                  
+                
+              </div>
+            
+          </div></div></div>
+        </div></div>
+      </div>
+      <div class="toc-wrapper">
+<h4>Content</h4>
+<ul class="toc">
+<li><a id="toc_introduction" href="#introduction" class="fancy-link">Introduction</a></li>
+<li><a id="toc_part-1" href="#part-1" class="fancy-link">Part 1</a></li>
+<li><a id="toc_part-2" href="#part-2" class="fancy-link">Part 2</a></li>
+<li><a id="toc_part-3" href="#part-3" class="fancy-link">Part 3</a></li>
+<li><a id="toc_compile-and-run" href="#compile-and-run" class="fancy-link">Compile and Run</a></li>
+</ul>
+</div>
+      <div id="content">
+        
+        <div class="wrapper">
+  <div class="pad"><div class="card">
+<div class="title"><h2 id="learning-objectives" class="title-text">Learning Objectives<a class="anchor title-text" href="#learning-objectives">#</a>
+</h2></div>
+  
+  
+
+
+  <div class="container-fluid"><div class="row"><div class="content col-sm-11 .col-sm-offset-1">
+<p>
+    The learning objectives for Perilous Pointers are: <br>
+    </p>
+<ul class="mdl-list">
+      
+        <li class="mdl-list__item">
+          <span class="mdl-list__item-primary-content">Pointers</span>
+        </li>
+      
+        <li class="mdl-list__item">
+          <span class="mdl-list__item-primary-content">Strings</span>
+        </li>
+      
+        <li class="mdl-list__item">
+          <span class="mdl-list__item-primary-content">Functions</span>
+        </li>
+      
+        <li class="mdl-list__item">
+          <span class="mdl-list__item-primary-content">Function Pointers</span>
+        </li>
+      
+    </ul>
+</div></div></div>
+</div></div>
+<div class="pad"><div class="card">
+<div class="title"><h2 id="suggested-readings" class="title-text">Suggested Readings<a class="anchor title-text" href="#suggested-readings">#</a>
+</h2></div>
+  
+  
+
+<div class="container-fluid"><div class="row"><div class="content col-sm-11 .col-sm-offset-1">
+<p>
+    We suggest you read the following from the
+    <a href="https://github.com/angrave/SystemProgramming/wiki" class="fancy-link wiki-link">wikibook</a>
+    before starting Perilous Pointers: <br>
+    </p>
+<ul>
+      
+        <li>
+          <a href="/wikibook/c-programming-part-1-introduction.html#" target="_blank" class="fancy-link wiki-link">C Programming, Part 1: Introduction
+          </a>
+        </li>
+      
+        <li>
+          <a href="/wikibook/c-programming-part-2-text-input-and-output.html#" target="_blank" class="fancy-link wiki-link">C Programming, Part 2: Text Input And Output
+          </a>
+        </li>
+      
+        <li>
+          <a href="/wikibook/c-programming-part-3-common-gotchas.html#" target="_blank" class="fancy-link wiki-link">C Programming, Part 3: Common Gotchas
+          </a>
+        </li>
+      
+    </ul>
+</div></div></div>
+</div></div>
+</div>
+        <div class="wrapper">
+<div class="pad"><div class="card">
+<div class="title"><h2 id="introduction" class="title-text">Introduction<a class="anchor title-text" href="#introduction">#</a>
+</h2></div>
+
+
+
+
+
+
+
+
+
+
+
+<div class="container-fluid"><div class="row"><div class="content col-sm-11 .col-sm-offset-1">
+<p>In CS 125, CS 225, and other classes, you have used various languages that are considered to be “C-based”, but up to now you may have very limited experience in C programming. This lab will provide a short programming introduction to pointers, strings, and functions in C.</p>
+<p>This lab will be divided up into three parts. In the first part, you will be debugging broken functions that use pointers incorrectly. In the second part, you will need to write code to call some “creatively defined” functions so that each prints out “Illinois”. In the third part, you will implmement map and reduce for a vector!</p>
+<p>For this lab, you should modify only:</p>
+<ul>
+  <li><code class="highlighter-rouge">part1-functions.c</code></li>
+  <li><code class="highlighter-rouge">part2-main.c</code></li>
+  <li><code class="highlighter-rouge">part3-functions.c</code></li>
+</ul>
+<p>All other files will be replaced with new/different files for grading. If you modify any other files for debugging purposes, please ensure you test your program with the original files.</p>
+</div></div></div>
+</div></div>
+<div class="pad"><div class="card">
+<div class="title"><h2 id="part-1" class="title-text">Part 1<a class="anchor title-text" href="#part-1">#</a>
+</h2></div>
+
+
+
+
+
+
+
+<div class="container-fluid"><div class="row"><div class="content col-sm-11 .col-sm-offset-1">
+<p>There are erroneous/unimplemented functions in <code class="highlighter-rouge">part1-functions.c</code>. Your task is to modify the functions according to the comment above each function so that the output of <code class="highlighter-rouge">./part1</code> looks exactly as follows:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>== one() ==
+20 not passed!
+100.000000 passed!
+== two() ==
+The value of p is: 4
+== three() ==
+x and y are equal.
+x and y are different.
+== four() ==
+4 == 4.000000
+432 == 432.000000
+== five() ==
+a is a letter.
+a is not a letter.
+== six() ==
+Hello World!
+== seven() ==
+0.000000 0.100000 0.200000 0.300000 0.400000 0.500000 0.600000 0.700000 0.800000 0.900000
+== eight() ==
+0 10 40 90 160 250 360 490 640 810
+== nine() ==
+orange and blue!
+ORANGE and blue!
+Orange and BLUE!
+orange and blue!
+== ten() ==
+The radius of the circle is: 17.500000.
+The radius of the circle is: 10.000000.
+== clear_bits() ==
+170
+0
+171
+0
+20
+0
+== little finite automatons
+5
+4
+6
+7
+</code></pre></div></div>
+<p>Note that you can just diff with <code class="highlighter-rouge">part1-expected-output</code>.</p>
+</div></div></div>
+</div></div>
+<div class="pad"><div class="card">
+<div class="title"><h2 id="part-2" class="title-text">Part 2<a class="anchor title-text" href="#part-2">#</a>
+</h2></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="container-fluid"><div class="row"><div class="content col-sm-11 .col-sm-offset-1">
+<p>We have given you a file called <code class="highlighter-rouge">part2-functions.c</code>, that you may not change. Inside <code class="highlighter-rouge">part2-functions.c</code>, you will see twelve different functions, such as <code class="highlighter-rouge">first_step()</code>:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>void first_step(int value) {
+  if (value == 81)
+    printf("1: Illinois\n");
+}
+</code></pre></div></div>
+<p>To complete Part 2, you must write <code class="highlighter-rouge">part2-main.c</code> so that it makes calls to all twelve functions in <code class="highlighter-rouge">part2-functions.c</code>, and such that each one prints out its “Illinois” line. When running <code class="highlighter-rouge">./part2</code>, your output should look exactly like this:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1: Illinois
+2: Illinois
+3: Illinois
+4: Illinois
+5: Illinois
+6: Illinois
+7: Illinois
+8: Illinois
+9: Illinois
+10: Illinois
+11: Illinois
+</code></pre></div></div>
+<p>Note that you can just diff with <code class="highlighter-rouge">part2-expected-output</code>.</p>
+<p><span style="color: #800">You should <strong>not</strong> edit the part2-functions.c file. In fact, when we grade your program, we will replace the part2-functions.c file with a new version of the file (and we’ll change the “Illinois” string so printing out “Illinois” in a for-loop will get you no credit).</span></p>
+</div></div></div>
+</div></div>
+<div class="pad"><div class="card">
+<div class="title"><h2 id="part-3" class="title-text">Part 3<a class="anchor title-text" href="#part-3">#</a>
+</h2></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="container-fluid"><div class="row"><div class="content col-sm-11 .col-sm-offset-1">
+<p>This part will explore a few different use cases of function pointers.</p>
+<p>We have provided a library that implements a <code class="highlighter-rouge">vector</code>, similar to the C++ vector class. It allows you to supply a copy constructor and destructor which correspond to the data type you want the vector to store. This is useful, since we don’t need a separate vector implementation for every data type we want to store. We have provided the header file for the vector interface in <code class="highlighter-rouge">includes/vector.h</code>. You will see this library being used in future assignments, so it’s a good idea to familiarize yourself with it.</p>
+<p>A similar but simpler design pattern using function pointers is illustrated by the vector printer (defined in <code class="highlighter-rouge">part3-main.c</code>):</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>typedef void (*printer_type)(void*);
+void vector_print(printer_type printer, vector* v){
+  printf("[");
+  VECTOR_FOR_EACH(v, elem, {printer(elem); if(_it+1!=_iend) printf(", ");});
+  printf("]\n");
+}
+</code></pre></div></div>
+<p>You might have noticed the VECTOR_FOR_EACH macro that we make use of here. It iterates through the vector for you, making your code look much neater. Feel free to use it in your solutions.</p>
+<p>The typedef statement serves as syntatic sugar to wrap around the rather tedious notation for a function pointer. Notice how vector_print can now take in a function that would implement some specific way to print whatever data type the vector might be storing. This is useful since our vector library is designed to be general purpose and hold any data type - including ones that a user might define. Below is an example of a printer for string (defined in <code class="highlighter-rouge">part3-main.c</code>)</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>void printer(void *s){
+  printf("%s\n", (char*)s);
+}
+</code></pre></div></div>
+<p>Similarly, in <code class="highlighter-rouge">part3-functions.h</code> we have defined two types, <code class="highlighter-rouge"><a href="https://linux.die.net/man/1/mapper" class="fancy-link">mapper</a></code> and <code class="highlighter-rouge">reducer</code> which represent the mappers and reducer you can pass in to the functions you implement.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>typedef char*(*mapper)(char*);
+typedef void*(*reducer)(char*,void*);
+</code></pre></div></div>
+<p>Here, <code class="highlighter-rouge"><a href="https://linux.die.net/man/1/mapper" class="fancy-link">mapper</a></code> is defined to be a function that accepts a string (<code class="highlighter-rouge">char*</code>) and returns a string. <code class="highlighter-rouge">reducer</code> is a function that accepts a string and a <code class="highlighter-rouge">void*</code> and returns a <code class="highlighter-rouge">void*</code>.</p>
+<h3 id="your-tasks" class="title-text">Your Tasks</h3>
+<p>There are four functions in <code class="highlighter-rouge">part3-functions.c</code> you will need to implement or modify: <code class="highlighter-rouge">vector_map</code>, <code class="highlighter-rouge">vector_reduce</code>, <code class="highlighter-rouge">length_reducer</code>, and <code class="highlighter-rouge">concat_reducer</code>. <code class="highlighter-rouge"><a href="https://linux.die.net/man/3/map" class="fancy-link">map</a></code> and <code class="highlighter-rouge">reduce</code> are powerful functions which show up very frequently, especially in functional paradigms. Here is a link explaning <a href="http://www.bogotobogo.com/python/python_fncs_map_filter_reduce.php" class="fancy-link wiki-link">Functional Programming in Python</a> a link explaning the concept in python.</p>
+<p><code class="highlighter-rouge">vector *vector_map(vector *input, mapper map)</code> will take a vector of strings and a function which takes a string as input and returns a string. <code class="highlighter-rouge">vector_map</code> should return a new vector where every element of the old vector is passed to the input function, and the ouput of the input function is stored in an output vector. Here’s a pseudocode example:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>input = ["foo", "bar", "baz"]
+vector_map(input, string_reverser) = ["oof", "rab", "zab"]
+</code></pre></div></div>
+<p>Where we assume the existence of some function <code class="highlighter-rouge">char *string_reverser(char *input)</code>  which takes a string as input and returns a reversed version.</p>
+<p>When you make a new vector, make sure it’s set up with the write constructor callbacks (using <code class="highlighter-rouge">string_vector_create</code> solves this problem). It is also worth noting that calling <code class="highlighter-rouge">vector_push_back</code> will make a copy of the data passed in (according to the copy constructor it was initialized with) and thus if you pushed in something that was allocated on the heap, you can free the original copy without affecting the vector.</p>
+<p><code class="highlighter-rouge">void *vector_reduce(vector *input, reducer reduce, void *acc)</code> will take a vector of strings, a function returning a void pointers that takes a string and a void pointer, and a void pointer to an accumulator and returns a void pointer. This function should iterate over the list of elements in the vector in order and update the accumulator by passing in the current element and the existing accumulator to the function passed in. The value you return may not necessarily be the same memory location passed in as the accumulator, but make sure not to leak any memory! You will also need to account for an inital accumulator value of NULL, which is not considered an error for our purposes. You should pass values to the reducer in the order vector element, then the accumulator (note that this matches the types of the arguments the reducer accepts. If you need to typecast, you’re doing it wrong!).</p>
+<p><code class="highlighter-rouge">void *length_reducer(char *input, void *output)</code> is a specific reducer you will be implementing. It should use the accumulator to store a pointer to an integer and likewise, returns a pointer to an integer. This function returns a pointer to an integer containing the sum of the length of the string passed in and the inital value stored in the accumulator. If the accumulator is NULL, allocate some memory for an integer, and store the length of the string inside it. Psuedocode exmaple:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>input = ["foo", "bar", "baz"]
+*vector_reduce(input, length_reducer, NULL) = 9
+</code></pre></div></div>
+<p><code class="highlighter-rouge">void *concat_reducer(char *input, void *output)</code> is a specific reducer you will be implementing. It should use the accumulator to store the result from the previous iteration and return a string which is the output of concatenating the input string the the string in the accumulator. This function concats all the strings in a vector in order to form one complete string. They should be joined in the order <code class="highlighter-rouge">accumulator</code> then <code class="highlighter-rouge">input</code>. If the accumulator is NULL, allocate enough memory to store the string in <code class="highlighter-rouge">input</code> and return a copy of <code class="highlighter-rouge">input</code>. Psuedocode example:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>input = ["foo", "bar", "baz"]
+vector_reduce(input, concat_reducer, NULL) = "foobarbaz"
+</code></pre></div></div>
+</div></div></div>
+</div></div>
+<div class="pad"><div class="card">
+<div class="title"><h2 id="compile-and-run" class="title-text">Compile and Run<a class="anchor title-text" href="#compile-and-run">#</a>
+</h2></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="container-fluid"><div class="row"><div class="content col-sm-11 .col-sm-offset-1">
+<p>To compile the release version of the code, run:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>make clean
+make
+</code></pre></div></div>
+<p>This will compile your code with some optimizations enabled, and will not include debugging information. If you use a debugger on the ‘release’ build, it will not be able to show you the original source code, or line numbers. Optimizations sometimes expose bugs in your code that would not show up otherwise, but since optimizations tend to reorder your code while compiling, an optimized version of your code is not optimal for debugging.</p>
+<p>You probably don’t need to worry about the different build types very much for this assignment, but the distinction will become more important on future assignments.</p>
+<p>To compile your code in debug mode, run <code class="highlighter-rouge">make debug</code> instead of <code class="highlighter-rouge"><a href="https://linux.die.net/man/3/make" class="fancy-link">make</a></code>.</p>
+<p>To run Part 1:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./part1
+</code></pre></div></div>
+<p>or</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./part1-debug
+</code></pre></div></div>
+<p>To run Part 2:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./part2
+</code></pre></div></div>
+<p>or</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./part2-debug
+</code></pre></div></div>
+<p>To run Part 3:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./part3 [test string]
+</code></pre></div></div>
+<p>or</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./part3-debug [test string]
+</code></pre></div></div>
+</div></div></div>
+</div></div>
+</div>
+        
+        <div class="wrapper">
+<div class="pad"><div class="card">
+<div class="title"><h2 id="submission-instructions" class="title-text">Submission Instructions<a class="anchor title-text" href="#submission-instructions">#</a>
+</h2></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="container-fluid"><div class="row"><div class="content col-sm-11 .col-sm-offset-1">
+<p>Please read details on <a href="http://illinois-cs241.github.io/#academic-integrity" class="fancy-link wiki-link">Academic Integrity</a> fully. These are shared by all assignments in CS 241.</p>
+<p>We will be using Subversion as our hand-in system this semester. Our grading system will checkout your most recent (pre-deadline) commit for grading. Therefore, to hand in your code, all you have to do is commit it to your Subversion repository.</p>
+<p>To check out the provided code for <code class="highlighter-rouge">perilous_pointers</code> from the class repository, go to your cs241 directory (the one you checked out for “know your tools”) and run:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>svn up
+</code></pre></div></div>
+<p>If you run <code class="highlighter-rouge"><a href="https://linux.die.net/man/1/ls" class="fancy-link">ls</a></code> you will now see a <code class="highlighter-rouge">perilous_pointers</code> folder, where you can find this assignment! To commit your changes (send them to us), type:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>svn ci -m "perilous_pointers submission"
+</code></pre></div></div>
+<p>Your repository directory can be viewed from a web browser from the following URL: <a href="https://subversion.ews.illinois.edu/svn/sp18-cs241/NETID/perilous_pointers" class="fancy-link wiki-link">https://subversion.ews.illinois.edu/svn/sp18-cs241/NETID/perilous_pointers</a>, where NETID is your University NetID. It is important to check that the files you expect to be graded are present and up to date in your SVN copy.</p>
+</div></div></div>
+</div></div>
+<div class="pad"><div class="card">
+<div class="title"><h2 id="assignment-feedback" class="title-text">Assignment Feedback<a class="anchor title-text" href="#assignment-feedback">#</a>
+</h2></div>
+
+
+
+
+
+
+
+<div class="container-fluid"><div class="row"><div class="content col-sm-11 .col-sm-offset-1">
+<p>We strive to provide the best assignments that we can for this course, and we would like your feedback on them!</p>
+<p>This is the form we will use to evaluate our assignments. We appreciate the time you take to give us your honest feedback and we promise to keep improving the course to make your experience in CS 241 the best it can be.</p>
+<p><a href="https://goo.gl/forms/hREf0ojFWumYfQF12" class="fancy-link wiki-link">https://goo.gl/forms/hREf0ojFWumYfQF12</a></p>
+</div></div></div>
+</div></div>
+</div>
+      </div>
+      <div class="col-md-2 col-sm-1 col-xs-0"></div>
+    </div>
+  </div>
+  <script>
+    var github_repo = "illinois-cs241/illinois-cs241.github.io";
+    var github_path = "_docs/perilous_pointers.md";
+  </script>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha384-xBuQ/xzmlsLoJpyjoggmTEz8OWUFM0/RC5BsqQBDX2v5cMvDHcMakNTNrHIW2I5f" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML" integrity="sha384-Ra6zh6uYMmH5ydwCqqMoykyf1T/+ZcnOQfFPhDrp2kI4OIxadnhsvvA2vv9A7xYv" crossorigin="anonymous"></script>
+<script src="/js/main.js?v=2018-03-15 14:21:15 +0000"></script>
+
+<script>
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover({
+      trigger: 'manual',
+        container: $(this).attr('id'),
+        placement: 'top',
+        content: function () {
+            return '<div class="hover-hovercard"></div>';
+        }
+    }).on("mouseenter", function () {
+        var _this = this;
+        $(this).popover("show");
+        $(this).siblings(".popover").on("mouseleave", function () {
+            $(_this).popover('hide');
+        });
+    }).on("mouseleave", function () {
+        var _this = this;
+        setTimeout(function () {
+            if (!$(".popover:hover").length) {
+               $(_this).popover("hide")
+            }
+        }, 100);
+    });
+
+    $('[data-toggle="tooltip"]').tooltip();
+});
+
+</script>
+<script src="/js/analytics.js"></script>
+<footer class="">
+
+<div class="container-fluid">
+<div class="shadow"></div>
+
+</div>
+
+</footer>
+
+</body>
+</html>

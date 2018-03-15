@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Favicons -->
+  <link rel="apple-touch-icon" sizes="180x180" href="images/favicons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="images/favicons/favicon-32x32.png" sizes="32x32">
+  <link rel="icon" type="image/png" href="images/favicons/favicon-16x16.png" sizes="16x16">
+  <link rel="manifest" href="images/favicons/manifest.json">
+  <link rel="mask-icon" href="images/favicons/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="theme-color" content="#ffffff">
+
+  <title>CS 241: System Programming</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link async rel="stylesheet" href="/css/code-style.css?v=2018-03-15 14:21:15 +0000">
+  <link rel="stylesheet" href="/css/main.css?v=2018-03-15 14:21:15 +0000">
+
+</head>
+
+<body>
+<!-- Always shows a header, even in smaller screens. -->
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            </button>
+
+            <a class="navbar-brand navbar-link normal" href="/">CS 241: System Programming</a>
+            <a class="navbar-brand navbar-link small" href="/">CS 241</a>
+        </div>
+
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li>
+            <a class="navbar-link" href="/mps.html">MPs</a>
+            </li>
+            <li>
+            <a class="navbar-link" href="/labs.html">Labs</a>
+            </li>
+            <li>
+            <a class="navbar-link" href="/help.html">Help!</a>
+            </li>
+            <li>
+            <a class="navbar-link" href="/schedule.html">Schedule</a>
+            </li>
+            <li>
+            <a class="navbar-link" href="/honors.html">Honors</a>
+            </li>
+            <li>
+            <a class="navbar-link" href="/staff.html">The Crew</a>
+            </li>
+            <li>
+            <a class="navbar-link" href="/search.html">Search</a>
+            </li>
+            <li>
+            <a class="navbar-link" href="/wikibook/home.html">Wikibook</a>
+            </li>
+          </ul>
+        </div>
+        </div>
+</nav>
+
+<div class="container-fluid">
+  <div class="row">
+  <div class="col-md-1 col-xs-1"></div>
+  <div class="col-md-10 col-xs-10">
+  <!-- A bit janky: assumes zero or one instructors. Why can't Jekyll have stable sort??? :( -->
+  
+  
+  
+  
+  <div class="container">
+  
+    
+    
+    <div class="row row-eq-height staff-row">
+    
+    
+    
+    <a href="mailto:angrave@illinois.edu?Subject=CS241%20Student" alt="Mail Student">
+      <div class="col-md-3 col-sm-12 col-xs-12 staff-div"
+          id="angrave"
+          data-toggle="tooltip"
+          data-placement="bottom"
+          title="Captain and Lecturer  interested in Systems and CS Education and has been on staff for Fall 2006 - Spring 2008, Fall 2014 - Fall 2016, Spring 2018"
+          style="background-image: url(/images/staffPhotos/angrave.jpg);">
+          <div class="container">
+          <div class="row">
+            <div class="staff-name col-md-12 col-xs-12">Lawrence Angrave</div>
+          </div>
+          </div>
+      </div>
+    </a>
+    <div class="col-md-1 col-sm-0 col-xs-0"></div>
+    
+  
+    
+    
+    
+    
+    <a href="mailto:ankitng2@illinois.edu?Subject=CS241%20Student" alt="Mail Student">
+      <div class="col-md-3 col-sm-12 col-xs-12 staff-div"
+          id="ankitng2"
+          data-toggle="tooltip"
+          data-placement="bottom"
+          title="Frontend + Backend  interested in security and mobile dev and has been on staff for Spring 2018"
+          style="background-image: url(/images/staffPhotos/ankitng2.jpg);">
+          <div class="container">
+          <div class="row">
+            <div class="staff-name col-md-12 col-xs-12">Ankit Gohel</div>
+          </div>
+          </div>
+      </div>
+    </a>
+    <div class="col-md-1 col-sm-0 col-xs-0"></div>
+    
+  
+    
+    
+    
+    
+    <a href="mailto:bchhet2@illinois.edu?Subject=CS241%20Student" alt="Mail Student">
+      <div class="col-md-3 col-sm-12 col-xs-12 staff-div"
+          id="bchhet2"
+          data-toggle="tooltip"
+          data-placement="bottom"
+          title="Lab/Office Hours Assistant  and has been on staff for Fall 2017 and Spring 2018"
+          style="background-image: url(/images/staffPhotos/bchhet2.jpg);">
+          <div class="container">
+          <div class="row">
+            <div class="staff-name col-md-12 col-xs-12">Bhawesh Chhetri</div>
+          </div>
+          </div>
+      </div>
+    </a>
+    <div class="col-md-1 col-sm-0 col-xs-0"></div>
+    
+      </div>
+    
+  
+    
+    
+    <div class="row row-eq-height staff-row">
+    
+    
+    
+    <a href="mailto:bkurek2@illinois.edu?Subject=CS241%20Student" alt="Mail Student">
+      <div class="col-md-3 col-sm-12 col-xs-12 staff-div"
+          id="bkurek2"
+          data-toggle="tooltip"
+          data-placement="bottom"
+          title="Lab/Office Hours Assistant  interested in web development and has been on staff for Spring 2017, Fall 2017, and Spring 2018"
+          style="background-image: url(/images/staffPhotos/bkurek2.jpg);">
+          <div class="container">
+          <div class="row">
+            <div class="staff-name col-md-12 col-xs-12">Brian Kurek</div>
+          </div>
+          </div>
+      </div>
+    </a>
+    <div class="col-md-1 col-sm-0 col-xs-0"></div>
+    
+  
+    
+    
+    
+    
+    <a href="mailto:bvenkat2@illinois.edu?Subject=CS241%20Student" alt="Mail Student">
+      <div class="col-md-3 col-sm-12 col-xs-12 staff-div"
+          id="bvenkat2"
+          data-toggle="tooltip"
+          data-placement="bottom"
+          title="Historian  interested in Reading and has been on staff for Fall 2016, Spring 2017, Fall 2017, and Spring 2018"
+          style="background-image: url(/images/staffPhotos/bvenkat2.jpg);">
+          <div class="container">
+          <div class="row">
+            <div class="staff-name col-md-12 col-xs-12">Bhuvan Venkatesh</div>
+          </div>
+          </div>
+      </div>
+    </a>
+    <div class="col-md-1 col-sm-0 col-xs-0"></div>
+    
+  
+    
+    
+    
+    
+    <a href="mailto:bzhang70@illinois.edu?Subject=CS241%20Student" alt="Mail Student">
+      <div class="col-md-3 col-sm-12 col-xs-12 staff-div"
+          id="bzhang70"
+          data-toggle="tooltip"
+          data-placement="bottom"
+          title="Teaching Assistant  and has been on staff for Spring 2018"
+          style="background-image: url(/images/staffPhotos/bzhang70.jpg);">
+          <div class="container">
+          <div class="row">
+            <div class="staff-name col-md-12 col-xs-12">Boyin Zhang</div>
+          </div>
+          </div>
+      </div>
+    </a>
+    <div class="col-md-1 col-sm-0 col-xs-0"></div>
+    
+      </div>
+    
+  
+    
+    
+    <div class="row row-eq-height staff-row">
+    
+    
+    
+    <a href="mailto:chen228@illinois.edu?Subject=CS241%20Student" alt="Mail Student">
+      <div class="col-md-3 col-sm-12 col-xs-12 staff-div"
+          id="chen228"
+          data-toggle="tooltip"
+          data-placement="bottom"
+          title="Teaching Assistant  and has been on staff for Spring 2018"
+          style="background-image: url(/images/staffPhotos/chen228.jpg);">
+          <div class="container">
+          <div class="row">
+            <div class="staff-name col-md-12 col-xs-12">Chen Chen</div>
+          </div>
+          </div>
+      </div>
+    </a>
+    <div class="col-md-1 col-sm-0 col-xs-0"></div>
+    
+  
+    
+    
+    
+    
+    <a href="mailto:cs241admin@illinois.edu?Subject=CS241%20Student" alt="Mail Student">
+      <div class="col-md-3 col-sm-12 col-xs-12 staff-div"
+          id="cs241admin"
+          data-toggle="tooltip"
+          data-placement="bottom"
+          title="Graduate Assistant: Assists with course administration (e.g. exam sickness, DRES)  and has been on staff for all semesters"
+          style="background-image: url(/images/staffPhotos/cs241admin.jpg);">
+          <div class="container">
+          <div class="row">
+            <div class="staff-name col-md-12 col-xs-12">CS241 Admin</div>
+          </div>
+          </div>
+      </div>
+    </a>
+    <div class="col-md-1 col-sm-0 col-xs-0"></div>
+    
+  
+    
+    
+    
+    
+    <a href="mailto:cygnus2@illinois.edu?Subject=CS241%20Student" alt="Mail Student">
+      <div class="col-md-3 col-sm-12 col-xs-12 staff-div"
+          id="cygnus2"
+          data-toggle="tooltip"
+          data-placement="bottom"
+          title="Lab/Office Hours Assistant and Assignment Developer  and has been on staff for Fall 2017 and Spring 2018"
+          style="background-image: url(/images/staffPhotos/cygnus2.png);">
+          <div class="container">
+          <div class="row">
+            <div class="staff-name col-md-12 col-xs-12">Christian Cygnus</div>
+          </div>
+          </div>
+      </div>
+    </a>
+    <div class="col-md-1 col-sm-0 col-xs-0"></div>
+    
+      </div>
+    
+  
+    
+    
+    <div class="row row-eq-height staff-row">
+    
+    
+    
+    <a href="mailto:durg2@illinois.edu?Subject=CS241%20Student" alt="Mail Student">
+      <div class="col-md-3 col-sm-12 col-xs-12 staff-div"
+          id="durg2"
+          data-toggle="tooltip"
+          data-placement="bottom"
+          title="Lab/Office Hours Assistant, Assignment Developer, and Honors Mentor  interested in memes and has been on staff for Spring 2017, Fall 2017, and Spring 2018"
+          style="background-image: url(/images/staffPhotos/durg2.jpg);">
+          <div class="container">
+          <div class="row">
+            <div class="staff-name col-md-12 col-xs-12">Aneesh Durg</div>
+          </div>
+          </div>
+      </div>
+    </a>
+    <div class="col-md-1 col-sm-0 col-xs-0"></div>
+    
+  
+    
+    
+    
+    
+    <a href="mailto:gcevans@illinois.edu?Subject=CS241%20Student" alt="Mail Student">
+      <div class="col-md-3 col-sm-12 col-xs-12 staff-div"
+          id="gcevans"
+          data-toggle="tooltip"
+          data-placement="bottom"
+          title="Co-Captain and Lecturer  interested in compilers and parallel and has been on staff for Spring 2017 and Fall 2017"
+          style="background-image: url(/images/staffPhotos/gcevans.jpg);">
+          <div class="container">
+          <div class="row">
+            <div class="staff-name col-md-12 col-xs-12">G Carl Evans</div>
+          </div>
+          </div>
+      </div>
+    </a>
+    <div class="col-md-1 col-sm-0 col-xs-0"></div>
+    
+  
+    
+    
+    
+    
+    <a href="mailto:hhuang74@illinois.edu?Subject=CS241%20Student" alt="Mail Student">
+      <div class="col-md-3 col-sm-12 col-xs-12 staff-div"
+          id="hhuang74"
+          data-toggle="tooltip"
+          data-placement="bottom"
+          title="Lab/Office Hours Assistant and Assignment Developer  and has been on staff for Fall 2017 and Spring 2018"
+          style="background-image: url(/images/staffPhotos/hhuang74.jpg);">
+          <div class="container">
+          <div class="row">
+            <div class="staff-name col-md-12 col-xs-12">Han Song Huang</div>
+          </div>
+          </div>
+      </div>
+    </a>
+    <div class="col-md-1 col-sm-0 col-xs-0"></div>
+    
+      </div>
+    
+  
+    
+    
+    <div class="row row-eq-height staff-row">
+    
+    
+    
+    <a href="mailto:jayndrn2@illinois.edu?Subject=CS241%20Student" alt="Mail Student">
+      <div class="col-md-3 col-sm-12 col-xs-12 staff-div"
+          id="jayndrn2"
+          data-toggle="tooltip"
+          data-placement="bottom"
+          title="Assignment Developer  and has been on staff for Spring 2017, Fall 2017, and Spring 2018"
+          style="background-image: url(/images/staffPhotos/jayndrn2.jpg);">
+          <div class="container">
+          <div class="row">
+            <div class="staff-name col-md-12 col-xs-12">Navneeth Jayendran</div>
+          </div>
+          </div>
+      </div>
+    </a>
+    <div class="col-md-1 col-sm-0 col-xs-0"></div>
+    
+  
+    
+    
+    
+    
+    <a href="mailto:jmehar2@illinois.edu?Subject=CS241%20Student" alt="Mail Student">
+      <div class="col-md-3 col-sm-12 col-xs-12 staff-div"
+          id="jmehar2"
+          data-toggle="tooltip"
+          data-placement="bottom"
+          title="Teaching Assistant  and has been on staff for Spring 2018"
+          style="background-image: url(/images/staffPhotos/jmehar2.jpg);">
+          <div class="container">
+          <div class="row">
+            <div class="staff-name col-md-12 col-xs-12">Jayasi Mehar</div>
+          </div>
+          </div>
+      </div>
+    </a>
+    <div class="col-md-1 col-sm-0 col-xs-0"></div>
+    
+  
+    
+    
+    
+    
+    <a href="mailto:jrlim3@illinois.edu?Subject=CS241%20Student" alt="Mail Student">
+      <div class="col-md-3 col-sm-12 col-xs-12 staff-div"
+          id="jrlim3"
+          data-toggle="tooltip"
+          data-placement="bottom"
+          title="Lab/Office Hours Assistant  and has been on staff for Fall 2017 and Spring 2018"
+          style="background-image: url(/images/staffPhotos/jrlim3.PNG);">
+          <div class="container">
+          <div class="row">
+            <div class="staff-name col-md-12 col-xs-12">Jing Rong Lim</div>
+          </div>
+          </div>
+      </div>
+    </a>
+    <div class="col-md-1 col-sm-0 col-xs-0"></div>
+    
+      </div>
+    
+  
+    
+    
+    <div class="row row-eq-height staff-row">
+    
+    
+    
+    <a href="mailto:jwexler2@illinois.edu?Subject=CS241%20Student" alt="Mail Student">
+      <div class="col-md-3 col-sm-12 col-xs-12 staff-div"
+          id="jwexler2"
+          data-toggle="tooltip"
+          data-placement="bottom"
+          title="Lab/Office Hours Assistant and Honors Lead  interested in procrastination and has been on staff for Spring 2017, Fall 2017, and Spring 2018"
+          style="background-image: url(/images/staffPhotos/jwexler2.jpg);">
+          <div class="container">
+          <div class="row">
+            <div class="staff-name col-md-12 col-xs-12">Jonathan Wexler</div>
+          </div>
+          </div>
+      </div>
+    </a>
+    <div class="col-md-1 col-sm-0 col-xs-0"></div>
+    
+  
+    
+    
+    
+    
+    <a href="mailto:khong18@illinois.edu?Subject=CS241%20Student" alt="Mail Student">
+      <div class="col-md-3 col-sm-12 col-xs-12 staff-div"
+          id="khong18"
+          data-toggle="tooltip"
+          data-placement="bottom"
+          title="Lab/Office Hours Assistant and Honors Mentor  interested in statistics and machine learning and has been on staff for Spring 2017, Fall 2017, and Spring 2018"
+          style="background-image: url(/images/staffPhotos/khong18.jpg);">
+          <div class="container">
+          <div class="row">
+            <div class="staff-name col-md-12 col-xs-12">Kevin Hong</div>
+          </div>
+          </div>
+      </div>
+    </a>
+    <div class="col-md-1 col-sm-0 col-xs-0"></div>
+    
+  
+    
+    
+    
+    
+    <a href="mailto:magerko2@illinois.edu?Subject=CS241%20Student" alt="Mail Student">
+      <div class="col-md-3 col-sm-12 col-xs-12 staff-div"
+          id="magerko2"
+          data-toggle="tooltip"
+          data-placement="bottom"
+          title="Assignment Developer  and has been on staff for Fall 2017 and Spring 2018"
+          style="background-image: url(/images/staffPhotos/magerko2.jpeg);">
+          <div class="container">
+          <div class="row">
+            <div class="staff-name col-md-12 col-xs-12">Nick Magerko</div>
+          </div>
+          </div>
+      </div>
+    </a>
+    <div class="col-md-1 col-sm-0 col-xs-0"></div>
+    
+      </div>
+    
+  
+    
+    
+    <div class="row row-eq-height staff-row">
+    
+    
+    
+    <a href="mailto:mayankb2@illinois.edu?Subject=CS241%20Student" alt="Mail Student">
+      <div class="col-md-3 col-sm-12 col-xs-12 staff-div"
+          id="mayankb2"
+          data-toggle="tooltip"
+          data-placement="bottom"
+          title="Teaching Assistant  and has been on staff for Fall 2016, Spring 2017, Spring 2018"
+          style="background-image: url(/images/staffPhotos/mayankb2.jpg);">
+          <div class="container">
+          <div class="row">
+            <div class="staff-name col-md-12 col-xs-12">Bhatt Mayank</div>
+          </div>
+          </div>
+      </div>
+    </a>
+    <div class="col-md-1 col-sm-0 col-xs-0"></div>
+    
+  
+    
+    
+    
+    
+    <a href="mailto:mostofi2@illinois.edu?Subject=CS241%20Student" alt="Mail Student">
+      <div class="col-md-3 col-sm-12 col-xs-12 staff-div"
+          id="mostofi2"
+          data-toggle="tooltip"
+          data-placement="bottom"
+          title="Assignment Developer and Infrastructure  interested in beards and has been on staff for Spring 2017, Fall 2017, and Spring 2018"
+          style="background-image: url(/images/staffPhotos/mostofi2.jpg);">
+          <div class="container">
+          <div class="row">
+            <div class="staff-name col-md-12 col-xs-12">Yasha Mostofi</div>
+          </div>
+          </div>
+      </div>
+    </a>
+    <div class="col-md-1 col-sm-0 col-xs-0"></div>
+    
+  
+    
+    
+    
+    
+    <a href="mailto:peng24@illinois.edu?Subject=CS241%20Student" alt="Mail Student">
+      <div class="col-md-3 col-sm-12 col-xs-12 staff-div"
+          id="peng24"
+          data-toggle="tooltip"
+          data-placement="bottom"
+          title="Teaching Assistant  interested in image processing and has been on staff for Fall 2016, Spring 2017, Fall 2017, and Spring 2018"
+          style="background-image: url(/images/staffPhotos/peng24.jpg);">
+          <div class="container">
+          <div class="row">
+            <div class="staff-name col-md-12 col-xs-12">Peng Li</div>
+          </div>
+          </div>
+      </div>
+    </a>
+    <div class="col-md-1 col-sm-0 col-xs-0"></div>
+    
+      </div>
+    
+  
+    
+    
+    <div class="row row-eq-height staff-row">
+    
+    
+    
+    <a href="mailto:ranang2@illinois.edu?Subject=CS241%20Student" alt="Mail Student">
+      <div class="col-md-3 col-sm-12 col-xs-12 staff-div"
+          id="ranang2"
+          data-toggle="tooltip"
+          data-placement="bottom"
+          title="Teaching Assistant  and has been on staff for Fall 2017 and Spring 2018"
+          style="background-image: url(/images/staffPhotos/ranang2.jpg);">
+          <div class="container">
+          <div class="row">
+            <div class="staff-name col-md-12 col-xs-12">Elaine Ang</div>
+          </div>
+          </div>
+      </div>
+    </a>
+    <div class="col-md-1 col-sm-0 col-xs-0"></div>
+    
+  
+    
+    
+    
+    
+    <a href="mailto:rmnarai2@illinois.edu?Subject=CS241%20Student" alt="Mail Student">
+      <div class="col-md-3 col-sm-12 col-xs-12 staff-div"
+          id="rmnarai2"
+          data-toggle="tooltip"
+          data-placement="bottom"
+          title="Teaching Assistant  and has been on staff for Spring 2018"
+          style="background-image: url(/images/staffPhotos/rmnarai2.jpg);">
+          <div class="container">
+          <div class="row">
+            <div class="staff-name col-md-12 col-xs-12">Raghav Narain</div>
+          </div>
+          </div>
+      </div>
+    </a>
+    <div class="col-md-1 col-sm-0 col-xs-0"></div>
+    
+  
+    
+    
+    
+    
+    <a href="mailto:schfrst2@illinois.edu?Subject=CS241%20Student" alt="Mail Student">
+      <div class="col-md-3 col-sm-12 col-xs-12 staff-div"
+          id="schfrst2"
+          data-toggle="tooltip"
+          data-placement="bottom"
+          title="Teaching Assistant  and has been on staff for Spring 2018"
+          style="background-image: url(/images/staffPhotos/schfrst2.jpg);">
+          <div class="container">
+          <div class="row">
+            <div class="staff-name col-md-12 col-xs-12">Sarah Schieferstein</div>
+          </div>
+          </div>
+      </div>
+    </a>
+    <div class="col-md-1 col-sm-0 col-xs-0"></div>
+    
+      </div>
+    
+  
+    
+    
+    <div class="row row-eq-height staff-row">
+    
+    
+    
+    <a href="mailto:shang9@illinois.edu?Subject=CS241%20Student" alt="Mail Student">
+      <div class="col-md-3 col-sm-12 col-xs-12 staff-div"
+          id="shang9"
+          data-toggle="tooltip"
+          data-placement="bottom"
+          title="Lab/Office Hours Assistant and Assignment Developer  interested in things and has been on staff for Fall 2017 and Spring 2018"
+          style="background-image: url(/images/staffPhotos/shang9.jpg);">
+          <div class="container">
+          <div class="row">
+            <div class="staff-name col-md-12 col-xs-12">Steven Shang</div>
+          </div>
+          </div>
+      </div>
+    </a>
+    <div class="col-md-1 col-sm-0 col-xs-0"></div>
+    
+  
+    
+    
+    
+    
+    <a href="mailto:srpatil2@illinois.edu?Subject=CS241%20Student" alt="Mail Student">
+      <div class="col-md-3 col-sm-12 col-xs-12 staff-div"
+          id="srpatil2"
+          data-toggle="tooltip"
+          data-placement="bottom"
+          title="Lab/Office Hours Assistant, Assignment Developer, and Honors Mentor  and has been on staff for Spring 2018"
+          style="background-image: url(/images/staffPhotos/srpatil2.jpg);">
+          <div class="container">
+          <div class="row">
+            <div class="staff-name col-md-12 col-xs-12">Shreyas Patil</div>
+          </div>
+          </div>
+      </div>
+    </a>
+    <div class="col-md-1 col-sm-0 col-xs-0"></div>
+    
+  
+    
+    
+    
+    
+    <a href="mailto:tjyu3@illinois.edu?Subject=CS241%20Student" alt="Mail Student">
+      <div class="col-md-3 col-sm-12 col-xs-12 staff-div"
+          id="tjyu3"
+          data-toggle="tooltip"
+          data-placement="bottom"
+          title="Frontend + Backend  and has been on staff for Spring 2018"
+          style="background-image: url(/images/staffPhotos/tjyu3.jpg);">
+          <div class="container">
+          <div class="row">
+            <div class="staff-name col-md-12 col-xs-12">Tommy Yu</div>
+          </div>
+          </div>
+      </div>
+    </a>
+    <div class="col-md-1 col-sm-0 col-xs-0"></div>
+    
+      </div>
+    
+  
+  </div>
+  </div>
+  </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha384-xBuQ/xzmlsLoJpyjoggmTEz8OWUFM0/RC5BsqQBDX2v5cMvDHcMakNTNrHIW2I5f" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML" integrity="sha384-Ra6zh6uYMmH5ydwCqqMoykyf1T/+ZcnOQfFPhDrp2kI4OIxadnhsvvA2vv9A7xYv" crossorigin="anonymous"></script>
+<script src="/js/main.js?v=2018-03-15 14:21:15 +0000"></script>
+
+<script>
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover({
+      trigger: 'manual',
+        container: $(this).attr('id'),
+        placement: 'top',
+        content: function () {
+            return '<div class="hover-hovercard"></div>';
+        }
+    }).on("mouseenter", function () {
+        var _this = this;
+        $(this).popover("show");
+        $(this).siblings(".popover").on("mouseleave", function () {
+            $(_this).popover('hide');
+        });
+    }).on("mouseleave", function () {
+        var _this = this;
+        setTimeout(function () {
+            if (!$(".popover:hover").length) {
+               $(_this).popover("hide")
+            }
+        }, 100);
+    });
+
+    $('[data-toggle="tooltip"]').tooltip();
+});
+
+</script>
+<script src="/js/analytics.js"></script>
+<footer class="">
+
+<div class="container-fluid">
+<div class="shadow"></div>
+
+</div>
+
+</footer>
+
+</body>
+</html>
